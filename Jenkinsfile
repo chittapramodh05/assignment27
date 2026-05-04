@@ -32,7 +32,7 @@ pipeline {
         stage('Verify Deployment') {
             steps {
                 echo 'Verifying running containers...'
-                bat "${DOCKER} ps | findstr assignment27"
+                bat "${DOCKER} ps"
             }
         }
     }
