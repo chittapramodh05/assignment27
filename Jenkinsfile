@@ -2,37 +2,37 @@ pipeline {
     agent any
 
     environment {
-        // Defining environment variables if needed
         COMPOSE_PROJECT_NAME = "assignment30"
+        DOCKER_COMPOSE = '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker-compose.exe"'
+        DOCKER = '"C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"'
     }
 
     stages {
         stage('Clean Environment') {
             steps {
                 echo 'Stopping and removing existing containers...'
-                // Using bat since the environment is Windows
-                bat 'docker-compose down'
+                bat "${DOCKER_COMPOSE} down"
             }
         }
 
         stage('Build Containers') {
             steps {
                 echo 'Building Docker images...'
-                bat 'docker-compose build'
+                bat "${DOCKER_COMPOSE} build"
             }
         }
 
         stage('Deploy Application') {
             steps {
                 echo 'Deploying application with Docker Compose...'
-                bat 'docker-compose up -d'
+                bat "${DOCKER_COMPOSE} up -d"
             }
         }
 
         stage('Verify Deployment') {
             steps {
                 echo 'Verifying running containers...'
-                bat 'docker ps | findstr assignment27'
+                bat "${DOCKER} ps | findstr assignment27"
             }
         }
     }
